@@ -6,7 +6,7 @@
       class="drawer-toggle"
       :checked="showSidebar"
     />
-    <div class="drawer-side fixed" :class="showSidebar ? 'z-50 h-screen' : ''">
+    <div class="drawer-side fixed" :class="showSidebar ? 'z-50 h-screen' : 'h-0'">
       <label for="my-drawer-4" class="drawer-overlay"></label>
       <ul
         class="menu p-4 overflow-y-auto w-screen sm:w-96 bg-black bg-opacity-[80%] text-base-content"
