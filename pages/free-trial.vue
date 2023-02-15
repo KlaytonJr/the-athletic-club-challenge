@@ -62,7 +62,7 @@
         <div class="form-group pt-1 mx-4">
           <select class="w-full rounded-[0px]" required v-model="form.club_id">
             <option value="">Select a Club</option>
-            <option v-for="{ club_name, club_id } in locations" :Value="id">
+            <option v-for="{ club_name, club_id } in locations" :Value="id"  :key="club_id">
               {{ club_name }}
             </option>
           </select>
@@ -82,7 +82,7 @@
           <button
             type="submit"
             class="btn btn-secondary uppercase h-20 text-xl tracking-widest px-12"
-            :disabled="loading"
+            :disabled="form.loading"
           >
             Get a Free Visit
           </button>
@@ -104,10 +104,11 @@ const form = reactive({
   phone: "",
   club_id: "",
   consent: false,
+  loading: false,
 });
 
 const handleSubmit = async () => {
-  loading = true;
+    form.loading = true;
   const response = await $fetch("/api/free-trial", {
     method: "POST",
     body: form,
@@ -119,14 +120,14 @@ const handleSubmit = async () => {
       type: "success",
       text: "Success. We will contact you soon!",
     }).show();
-    loading = false;
+    form.loading = false;
   } else {
     new Noty({
       theme: "sunset",
       type: "error",
       text: "An error occurred - " + err,
     }).show();
-    loading = false;
+    form.loading = false;
   }
 };
 </script>
