@@ -15,9 +15,17 @@
 
 <script setup>
 const count = ref(0);
+
+onMounted(() => count.value = localStorage.getItem("myCounter"));
+
 const handleClick = () => {
   count.value++;
+  localStorage.setItem("myCounter", count.value);
 };
+
+setInterval(() => {
+    count.value = localStorage.getItem("myCounter");
+}, 500);
 </script>
 
 <style scoped></style>
