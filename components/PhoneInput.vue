@@ -1,5 +1,5 @@
 <template>
-  <input type="text" v-bind="$attrs" :value="modelValue" @input="updateValue" />
+  <input type="text" v-bind="$attrs" :value="modelValue" @input="updateValue" maxlength="13" />
 </template>
 
 <script>
@@ -12,7 +12,9 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const updateValue = (event) => {
-      emit("update:modelValue", event.target.value);
+        let cleaned = event.target.value.replaceAll("(", "").replaceAll(")", "").replaceAll("-", "")
+        let formatted = `(${cleaned.substr(0,3)})${cleaned.substr(3,3)}-${cleaned.substr(6,3)}`
+        emit("update:modelValue", formatted);
     };
     return { updateValue };
   },
