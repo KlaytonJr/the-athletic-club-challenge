@@ -5,7 +5,7 @@
       class="max-w-4xl px-4 py-8 mx-auto sm:py-32 sm:px-6 lg:px-8"
     >
       <div id="detailsWrapper" class="w-full">
-        <div class="section-heading text-center w-full">
+        <div class="section-heading text-center w-full fade-in">
           <h1 class="text-black text-5xl">WHAT MAKES US DIFFERENT</h1>
           <h4 class="text-black pt-2 pb-8">
             LEARN MORE ABOUT <br class="md:hidden" />
@@ -20,7 +20,7 @@
 
         <div id="detailsGrid" class="pt-4">
           <div id="details" class="sm:flex justify-between gap-x-20">
-            <div class="grid-detail min-w-64">
+            <div class="grid-detail min-w-64 fade-in">
               <div class="">
                 <i class="las la-users text-5xl text-secondary"></i>
                 <h2 class="mt-2 uppercase text-2xl">
@@ -34,7 +34,7 @@
                 </p>
               </div>
             </div>
-            <div class="grid-detail min-w-64">
+            <div class="grid-detail min-w-64 fade-in">
               <div class="">
                 <i class="las la-book-dead text-5xl text-secondary"></i>
                 <h2 class="mt-2 uppercase text-2xl">WHO WE ARE <br /><br /></h2>
@@ -45,7 +45,7 @@
                 </p>
               </div>
             </div>
-            <div class="grid-detail min-w-64">
+            <div class="grid-detail min-w-64 fade-in">
               <div class="">
                 <i class="las la-trophy text-5xl text-secondary"></i>
                 <h2 class="mt-2 uppercase text-2xl w-64">
@@ -68,13 +68,13 @@
   <div class="pt-20 bg-slate-600">
     <div id="callToAction" class="">
       <div id="galleryWrapper ">
-        <div class="section-heading text-center pb-4 max-w-5xl mx-auto">
+        <div class="section-heading text-center pb-4 max-w-5xl mx-auto fade-in">
           <h1 class="text-5xl">
             COMMITTED TO A CUTTING EDGE, INNOVATIVE EXPERIENCE
           </h1>
         </div>
 
-        <div id="mediaWrapper" class="embed-container w-full">
+        <div id="mediaWrapper" class="embed-container w-full fade-in">
           <iframe
             class="video w-full object-fit"
             width="800"
@@ -90,4 +90,38 @@
   </div>
 </template>
 
-<style scoped></style>
+<script setup>
+var fadeInElements = []
+const handleScroll = (evt) => {
+    for (var i = 0; i < fadeInElements.length; i++) {
+        var elem = fadeInElements[i]
+        if (isElemVisible(elem)) {
+          elem.style.opacity = '1'
+          elem.style.transform = 'scale(1)'
+          fadeInElements.splice(i, 1) // only allow it to run once
+        }
+    }
+}
+const isElemVisible = (el) => {
+    var rect = el.getBoundingClientRect()
+    var elemTop = rect.top + 200 // 200 = buffer
+    var elemBottom = rect.bottom
+    return elemTop < window.innerHeight && elemBottom >= 0
+}
+onMounted(() => {
+    fadeInElements = Array.from(document.getElementsByClassName('fade-in'));
+    document.addEventListener('scroll', handleScroll);
+    handleScroll();
+})
+onUnmounted(() => {
+    document.removeEventListener('scroll', handleScroll)
+})
+</script>
+
+<style scoped>
+.fade-in {
+    opacity: 0;
+    transition: 0.3s all ease-out;
+    transform: scale(0.8);
+}
+</style>
