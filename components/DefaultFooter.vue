@@ -1,7 +1,7 @@
 <template>
   <div id="prefootCallToAction" class="bg-black md:flex" v-if="showPrefooter">
     <div id="actualCallToAction" class="md:w-2/5 pt-16 md:pt-48">
-      <h1 class="text-7xl mr-32 font-black -ml-2">
+      <h1 class="text-7xl pl-16 mr-32 font-black -ml-2">
         START YOUR ATHLETIC CLUB EXPERIENCE
       </h1>
       <div id="ctaButtonPanel" class="pt-8 pl-16 pb-8 md:pb-2">
